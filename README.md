@@ -19,3 +19,9 @@ A few resources to get you started if this is your first brick template:
 [2]: https://github.com/felangel/mason/tree/master/packages/mason_cli#readme
 [3]: https://verygood.ventures/blog/code-generation-with-mason
 [4]: https://youtu.be/G4PTjA6tpTU
+
+## Create App template using this brick
+
+```dart
+mason make flutter_mason_template --on-conflict overwrite
+```
