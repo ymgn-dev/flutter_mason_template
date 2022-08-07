@@ -1,0 +1,22 @@
+name: flutter_mason_template
+description: A new brick created with the Mason CLI.
+version: 0.1.0+1
+environment:
+  mason: ">=0.1.0-dev.26 <0.1.0"
+
+vars:
+  name:
+    type: string
+    description: Project name
+    default: my_app
+    prompt: What is the project name?
+  description:
+    type: string
+    description: Project description
+    default: Flutter template
+    prompt: What is the project description?
+  org:
+    type: string
+    description: Project organization
+    default: com.example
+    prompt: What is the project organization?
