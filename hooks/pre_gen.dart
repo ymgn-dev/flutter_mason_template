@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:mason/mason.dart';
 
 Future<void> run(HookContext context) async {
-  final appCreated = context.logger.progress('Creating app');
+  final logger = context.logger.progress('Creating app');
   try {
     await _createApp(context);
-    appCreated.complete('Successfully created');
+    logger.complete('Successfully created');
   } catch (e) {
-    appCreated.fail('Failed to create the app');
+    logger.fail('Failed to create the app');
   }
 }
 

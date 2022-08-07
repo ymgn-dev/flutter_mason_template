@@ -25,7 +25,7 @@ Future<void> _addDependencies(
   required List<String> packages,
   bool isDev = false,
 }) async {
-  final install = context.logger.progress(
+  final logger = context.logger.progress(
     isDev ? 'Installing dev dependencies...' : 'Installing dependencies...',
   );
 
@@ -36,6 +36,6 @@ Future<void> _addDependencies(
   );
 
   result.exitCode == 0
-      ? install.complete('Successfully installed!')
-      : install.fail(result.stderr);
+      ? logger.complete('Successfully installed!')
+      : logger.fail(result.stderr);
 }
