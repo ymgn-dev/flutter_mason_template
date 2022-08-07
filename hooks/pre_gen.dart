@@ -6,7 +6,7 @@ Future<void> run(HookContext context) async {
   final appCreated = context.logger.progress('Creating app');
   try {
     await _createApp(context);
-    appCreated.complete('Successfully created 🎉');
+    appCreated.complete('Successfully created');
   } catch (e) {
     appCreated.fail('Failed to create the app');
   }
