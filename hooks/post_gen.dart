@@ -1,6 +1,6 @@
-import 'package:mason/mason.dart';
+import 'dart:io';
 
-import 'utils/add_dependencies.dart';
+import 'package:mason/mason.dart';
 
 Future<void> run(HookContext context) async {
   final packages = [
@@ -16,6 +16,26 @@ Future<void> run(HookContext context) async {
     'pedantic_mono',
   ];
 
-  await addDependencies(context, packages: packages);
-  await addDependencies(context, packages: devPackages, isDev: true);
+  await _addDependencies(context, packages: packages);
+  await _addDependencies(context, packages: devPackages, isDev: true);
+}
+
+Future<void> _addDependencies(
+  HookContext context, {
+  required List<String> packages,
+  bool isDev = false,
+}) async {
+  final install = context.logger.progress(
+    isDev ? 'Installing dev dependencies...' : 'Installing dependencies...',
+  );
+
+  final result = await Process.run(
+    'flutter',
+    ['pub', 'add', if (isDev) '--dev', ...packages],
+    workingDirectory: './{{name}}',
+  );
+
+  result.exitCode == 0
+      ? install.complete('Successfully installed!')
+      : install.fail(result.stderr);
 }
