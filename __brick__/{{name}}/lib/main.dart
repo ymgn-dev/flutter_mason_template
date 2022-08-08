@@ -20,7 +20,7 @@ class MyApp extends HookConsumerWidget {
     final value = ref.watch(helloWorldProvider);
 
     return MaterialApp(
-      onGenerateTitle: AppLocalizations.of(context).appTitle,
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       theme: ThemeData(primarySwatch: Colors.blue),
