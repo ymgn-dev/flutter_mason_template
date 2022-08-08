@@ -10,11 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons:
-  {{#use_l10n}}
   flutter_localizations:
     sdk: flutter
   intl:
-  {{/use_l10n}}
 
   flutter_hooks:
   hooks_riverpod:
@@ -34,6 +32,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  {{#use_l10n}}
   generate: true
-  {{/use_l10n}}

@@ -20,8 +20,8 @@ vars:
     description: Project organization
     default: com.example
     prompt: What is the project organization?
-  use_l10n:
-    type: boolean
-    description: Whether to use l10n or not
-    default: true
-    prompt: Do you use l10n?
+  locale:
+    type: string
+    description: Project locale
+    default: ja
+    prompt: What is your locale?
