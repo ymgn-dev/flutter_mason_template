@@ -14,9 +14,9 @@ Future<void> run(HookContext context) async {
 
 Future<ProcessResult> _createApp(HookContext context) async {
   context.logger.info('Running flutter create...');
-  final name = context.vars['name'];
-  final description = context.vars['description'];
-  final org = context.vars['org'];
+  final name = context.vars['name'] as String;
+  final description = context.vars['description'] as String;
+  final org = context.vars['org'] as String;
   return Process.run(
     'flutter',
     ['create', '$name', '--description', '$description', '--org', '$org'],

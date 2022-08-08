@@ -3,39 +3,36 @@ import 'dart:io';
 import 'package:mason/mason.dart';
 
 Future<void> run(HookContext context) async {
-  final packages = [
-    'flutter_hooks',
-    'hooks_riverpod',
-    'freezed_annotation',
-    'json_annotation',
-  ];
-  final devPackages = [
-    'build_runner',
-    'freezed',
-    'json_serializable',
-    'pedantic_mono',
-  ];
-
-  await _addDependencies(context, packages: packages);
-  await _addDependencies(context, packages: devPackages, isDev: true);
+  final useL10n = context.vars['use_l10n'] as bool;
+  if (useL10n) {
+    _setupL10n(context);
+  }
 }
 
-Future<void> _addDependencies(
-  HookContext context, {
-  required List<String> packages,
-  bool isDev = false,
-}) async {
-  final logger = context.logger.progress(
-    isDev ? 'Installing dev dependencies...' : 'Installing dependencies...',
-  );
+Future<void> _setupL10n(HookContext context) async {
+  final name = context.vars['name'] as String;
+  final flutterProjRoot = Directory('${name}');
 
-  final result = await Process.run(
-    'flutter',
-    ['pub', 'add', if (isDev) '--dev', ...packages],
-    workingDirectory: './{{name}}',
-  );
+  await File('${flutterProjRoot.absolute.path}/l10n.yaml')
+      .create(recursive: true)
+    ..writeAsString(
+      '''
+arb-dir: lib/l10n
+template-arb-file: app_ja.arb
+output-localization-file: app_l10n.dart
+''',
+    );
 
-  result.exitCode == 0
-      ? logger.complete('Successfully installed!')
-      : logger.fail(result.stderr);
+  await File('${flutterProjRoot.absolute.path}/lib/l10n/app_ja.arb')
+      .create(recursive: true)
+    ..writeAsString(
+      '''
+{
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+      "description": "The conventional newborn programmer greeting"
+    }
+}
+''',
+    );
 }
